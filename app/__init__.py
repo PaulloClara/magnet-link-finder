@@ -13,3 +13,4 @@ class App(object):
 
     def run(self):
         self.controller.run()
+        self.view.mainloop()
