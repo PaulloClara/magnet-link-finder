@@ -11,6 +11,7 @@ class View(Tk):
 
         self.title("Magnet Finder")
         self.geometry("340x480")
+        self.resizable(0, 0)
 
     def run(self, events):
         self.events = events
