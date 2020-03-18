@@ -13,7 +13,7 @@ class View(Tk):
         self.geometry('340x480')
         self.resizable(0, 0)
 
-        self.wm_iconphoto(True, PhotoImage(file='app/assets/window-icon.png'))
+        self.wm_iconphoto(True, PhotoImage(file='app/assets/icons/window.png'))
 
     def run(self, events):
         self.events = events
@@ -58,7 +58,7 @@ class Header(Frame):
         self.search_button_icon = None
 
     def run(self):
-        self.search_button_icon = PhotoImage(file='app/assets/find-icon.png')
+        self.search_button_icon = PhotoImage(file='app/assets/icons/find.png')
 
         self.initialize_search_input()
         self.initialize_search_button()
@@ -105,7 +105,7 @@ class Body(Frame):
         self.item_button_icon = None
 
     def run(self):
-        self.item_button_icon = PhotoImage(file='app/assets/copy-icon.png')
+        self.item_button_icon = PhotoImage(file='app/assets/icons/copy.png')
 
         self.initialize_canvas()
         self.initialize_viewport()
