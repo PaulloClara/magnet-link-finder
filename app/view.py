@@ -114,7 +114,7 @@ class Body(Frame):
         self.config_scrollview()
 
         for i in range(20):
-            self.create_item(text=f'Label Label Label {i}')
+            self.create_item(text=f'Label Label Label Label{i}')
 
         self.pack(pady=4, side='bottom')
 
@@ -129,7 +129,7 @@ class Body(Frame):
 
         cnf = {}
 
-        cnf['text'] = text
+        cnf['text'] = text if len(text) < 25 else f'{text[:22]}...'
         cnf['bg'] = 'darkgreen'
         cnf['fg'] = 'white'
         cnf['font'] = ('Helvetica', 14, 'normal')
