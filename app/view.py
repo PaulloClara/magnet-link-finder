@@ -41,11 +41,11 @@ class Main(Frame):
 
     def initialize_body_container(self):
         self.body_container = Body(master=self)
-        self.body_container.run()
+        self.body_container.run(self.master.events['body'])
 
     def initialize_header_container(self):
         self.header_container = Header(master=self)
-        self.header_container.run()
+        self.header_container.run(self.master.events['header'])
 
 
 class Header(Frame):
@@ -57,17 +57,17 @@ class Header(Frame):
         self.search_button = None
         self.search_button_icon = None
 
-    def run(self):
+    def run(self, events):
         self.search_button_icon = PhotoImage(file='app/assets/icons/find.png')
 
-        self.initialize_search_input()
-        self.initialize_search_button()
+        self.initialize_search_input(command=events['search_link'])
+        self.initialize_search_button(command=events['search_link'])
 
         self.search_input.focus()
 
         self.pack(pady=4, side='top')
 
-    def initialize_search_input(self):
+    def initialize_search_input(self, command):
         cnf = {}
 
         cnf['bd'] = 4
@@ -81,15 +81,19 @@ class Header(Frame):
         cnf['font'] = ('Helvetica', 18, 'normal')
 
         self.search_input = Entry(master=self, cnf=cnf)
+        self.search_input.bind('<Return>', command)
+
         self.search_input.pack(ipadx=4, ipady=2, side='left')
 
-    def initialize_search_button(self):
+    def initialize_search_button(self, command):
         cnf = {}
 
         cnf['bd'] = 0
         cnf['image'] = self.search_button_icon
 
         self.search_button = Button(master=self, cnf=cnf)
+        self.search_button.bind('<Button-1>', command)
+
         self.search_button.pack(ipadx=2, side='right')
 
 
@@ -104,7 +108,7 @@ class Body(Frame):
 
         self.item_button_icon = None
 
-    def run(self):
+    def run(self, events):
         self.item_button_icon = PhotoImage(file='app/assets/icons/copy.png')
 
         self.initialize_canvas()
@@ -112,13 +116,9 @@ class Body(Frame):
         self.initialize_scrollbar()
 
         self.config_scrollview()
-
-        for i in range(20):
-            self.create_item(text=f'Label Label Label Label{i}')
-
         self.pack(pady=4, side='bottom')
 
-    def create_item(self, text):
+    def create_item(self, text, command):
         cnf = {}
 
         cnf['bd'] = 2
@@ -145,6 +145,8 @@ class Body(Frame):
         cnf['image'] = self.item_button_icon
 
         button = Button(master=item, cnf=cnf)
+        button.bind('<Button-1>', lambda event: command(event, text))
+
         button.pack(side='right')
 
         item.pack(fill='x')
