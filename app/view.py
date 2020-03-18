@@ -63,14 +63,21 @@ class Header(Frame):
         self.initialize_search_input()
         self.initialize_search_button()
 
-        self.pack(padx=4, pady=4, side='top')
+        self.search_input.focus()
+
+        self.pack(pady=4, side='top')
 
     def initialize_search_input(self):
         cnf = {}
 
-        cnf['width'] = 18
-        cnf['bd'] = 2
+        cnf['bd'] = 4
+        cnf['bg'] = '#606060'
+        cnf['relief'] = 'ridge'
+        cnf['highlightcolor'] = 'grey'
+        cnf['selectbackground'] = 'grey'
         cnf['fg'] = 'white'
+        cnf['justify'] = 'center'
+        cnf['insertbackground'] = 'white'
         cnf['font'] = ('Helvetica', 18, 'normal')
 
         self.search_input = Entry(master=self, cnf=cnf)
@@ -83,13 +90,13 @@ class Header(Frame):
         cnf['image'] = self.search_button_icon
 
         self.search_button = Button(master=self, cnf=cnf)
-        self.search_button.pack(padx=2, side='right')
+        self.search_button.pack(ipadx=2, side='right')
 
 
 class Body(Frame):
 
     def __init__(self, master):
-        super().__init__(master=master)
+        super().__init__(master=master, bd=2, bg='grey')
 
         self.canvas = None
         self.viewport = None
@@ -115,20 +122,20 @@ class Body(Frame):
         cnf = {}
 
         cnf['bd'] = 2
-        cnf['bg'] = 'grey'
-        cnf['relief'] = 'flat'
+        cnf['bg'] = 'darkgreen'
+        cnf['relief'] = 'raised'
 
         item = Frame(master=self.viewport, cnf=cnf)
 
         cnf = {}
 
         cnf['text'] = text
-        cnf['bg'] = 'grey'
+        cnf['bg'] = 'darkgreen'
         cnf['fg'] = 'white'
         cnf['font'] = ('Helvetica', 14, 'normal')
 
         label = Label(master=item, cnf=cnf)
-        label.pack(fill='y', side='left')
+        label.pack(ipadx=10, fill='y', side='left')
 
         cnf = {}
 
@@ -140,7 +147,7 @@ class Body(Frame):
         button = Button(master=item, cnf=cnf)
         button.pack(side='right')
 
-        item.pack(pady=1, fill='x')
+        item.pack(fill='x')
 
     def config_scrollview(self):
         self.scrollbar.configure(command=self.canvas.yview)
@@ -159,7 +166,10 @@ class Body(Frame):
 
     def initialize_canvas(self):
         cnf = {}
+
         cnf['height'] = 420
+        cnf['bd'] = 2
+        cnf['bg'] = 'grey'
 
         self.canvas = Canvas(master=self, cnf=cnf)
 
@@ -171,8 +181,9 @@ class Body(Frame):
     def initialize_scrollbar(self):
         cnf = {}
 
-        cnf['bd'] = 2
+        cnf['width'] = 14
+        cnf['bd'] = 4
         cnf['bg'] = 'grey'
-        cnf['relief'] = 'flat'
+        cnf['relief'] = 'raised'
 
         self.scrollbar = Scrollbar(master=self, cnf=cnf)
