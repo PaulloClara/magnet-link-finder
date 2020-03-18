@@ -9,8 +9,8 @@ class View(Tk):
         self.events = {}
         self.main_container = None
 
-        self.title("Magnet Finder")
-        self.geometry("340x480")
+        self.title('Magnet Finder')
+        self.geometry('340x480')
         self.resizable(0, 0)
 
         self.wm_iconphoto(True, PhotoImage(file='app/assets/window-icon.png'))
@@ -58,7 +58,7 @@ class Header(Frame):
         self.search_button_icon = None
 
     def run(self):
-        self.search_button_icon = PhotoImage(file="app/assets/find-icon.png")
+        self.search_button_icon = PhotoImage(file='app/assets/find-icon.png')
 
         self.initialize_search_input()
         self.initialize_search_button()
@@ -66,31 +66,24 @@ class Header(Frame):
         self.pack(padx=4, pady=4, side='top')
 
     def initialize_search_input(self):
-        cnf, pack = {}, {}
+        cnf = {}
 
         cnf['width'] = 18
         cnf['bd'] = 2
         cnf['fg'] = 'white'
         cnf['font'] = ('Helvetica', 18, 'normal')
 
-        pack['ipadx'] = 4
-        pack['ipady'] = 2
-        pack['side'] = 'left'
-
         self.search_input = Entry(master=self, cnf=cnf)
-        self.search_input.pack(cnf=pack)
+        self.search_input.pack(ipadx=4, ipady=2, side='left')
 
     def initialize_search_button(self):
-        cnf, pack = {}, {}
+        cnf = {}
 
         cnf['bd'] = 0
         cnf['image'] = self.search_button_icon
 
-        pack['padx'] = 2
-        pack['side'] = 'right'
-
         self.search_button = Button(master=self, cnf=cnf)
-        self.search_button.pack(cnf=pack)
+        self.search_button.pack(padx=2, side='right')
 
 
 class Body(Frame):
@@ -105,7 +98,7 @@ class Body(Frame):
         self.item_button_icon = None
 
     def run(self):
-        self.item_button_icon = PhotoImage(file="app/assets/copy-icon.png")
+        self.item_button_icon = PhotoImage(file='app/assets/copy-icon.png')
 
         self.initialize_canvas()
         self.initialize_viewport()
