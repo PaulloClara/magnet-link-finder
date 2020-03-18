@@ -13,6 +13,8 @@ class View(Tk):
         self.geometry("340x480")
         self.resizable(0, 0)
 
+        self.wm_iconphoto(True, PhotoImage(file='app/assets/window-icon.png'))
+
     def run(self, events):
         self.events = events
 
@@ -154,9 +156,8 @@ class Body(Frame):
         self.scrollbar.pack(side='right', fill='y')
         self.canvas.pack(side='left', fill='both', expand=True)
 
-        self.canvas_window =\
-            self.canvas.create_window(
-                (4, 4), window=self.viewport, anchor='nw', tags='self.viewport')
+        self.canvas_window = self.canvas.create_window(
+            (4, 4), window=self.viewport, anchor='nw', tags='self.viewport')
 
         self.canvas.bind('<Configure>', lambda event: self.canvas.itemconfig(
             self.canvas_window, width=event.width))
