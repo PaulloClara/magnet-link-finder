@@ -1,6 +1,7 @@
 *.env
 .venv
 
-*pycache*
+*/temp/*.txt
 
 .vscode
+*pycache*
