@@ -1,6 +1,6 @@
-from app.view import View
-from app.model import Model
-from app.controller import Controller
+from src.app.view import View
+from src.app.model import Model
+from src.app.controller import Controller
 
 
 class App(object):

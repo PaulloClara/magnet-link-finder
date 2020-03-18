@@ -1,3 +1,4 @@
+from src import FIND_ICON_PATH, COPY_ICON_PATH, WINDOW_ICON_PATH
 from tkinter import Tk, Frame, Canvas, Entry, Label, Button, Scrollbar, PhotoImage
 
 
@@ -7,45 +8,45 @@ class View(Tk):
         super().__init__()
 
         self.events = {}
-        self.main_container = None
+        self.container = None
 
         self.title('Magnet Finder')
         self.geometry('340x480')
         self.resizable(0, 0)
 
-        self.wm_iconphoto(True, PhotoImage(file='app/assets/icons/window.png'))
+        self.wm_iconphoto(True, PhotoImage(file=WINDOW_ICON_PATH))
 
     def run(self, events):
         self.events = events
 
-        self.initialize_main_container()
+        self.initialize_container()
 
-    def initialize_main_container(self):
-        self.main_container = Main(master=self)
-        self.main_container.run()
+    def initialize_container(self):
+        self.container = Container(master=self)
+        self.container.run()
 
 
-class Main(Frame):
+class Container(Frame):
 
     def __init__(self, master):
         super().__init__(master=master)
 
-        self.body_container = None
-        self.header_container = None
+        self.main = None
+        self.header = None
 
     def run(self):
-        self.initialize_header_container()
-        self.initialize_body_container()
+        self.initialize_header()
+        self.initialize_main()
 
         self.pack(padx=4)
 
-    def initialize_body_container(self):
-        self.body_container = Body(master=self)
-        self.body_container.run(self.master.events['body'])
+    def initialize_main(self):
+        self.main = Main(master=self)
+        self.main.run(self.master.events['main'])
 
-    def initialize_header_container(self):
-        self.header_container = Header(master=self)
-        self.header_container.run(self.master.events['header'])
+    def initialize_header(self):
+        self.header = Header(master=self)
+        self.header.run(self.master.events['header'])
 
 
 class Header(Frame):
@@ -58,7 +59,7 @@ class Header(Frame):
         self.search_button_icon = None
 
     def run(self, events):
-        self.search_button_icon = PhotoImage(file='app/assets/icons/find.png')
+        self.search_button_icon = PhotoImage(file=FIND_ICON_PATH)
 
         self.initialize_search_input(command=events['search_link'])
         self.initialize_search_button(command=events['search_link'])
@@ -97,7 +98,7 @@ class Header(Frame):
         self.search_button.pack(ipadx=2, side='right')
 
 
-class Body(Frame):
+class Main(Frame):
 
     def __init__(self, master):
         super().__init__(master=master, bd=2, bg='grey')
@@ -109,13 +110,13 @@ class Body(Frame):
         self.item_button_icon = None
 
     def run(self, events):
-        self.item_button_icon = PhotoImage(file='app/assets/icons/copy.png')
+        self.item_button_icon = PhotoImage(file=COPY_ICON_PATH)
 
         self.initialize_canvas()
         self.initialize_viewport()
         self.initialize_scrollbar()
 
-        self.config_scrollview()
+        self.configure_scrollview()
         self.pack(pady=4, side='bottom')
 
     def create_item(self, text, command):
@@ -151,7 +152,7 @@ class Body(Frame):
 
         item.pack(fill='x')
 
-    def config_scrollview(self):
+    def configure_scrollview(self):
         self.scrollbar.configure(command=self.canvas.yview)
         self.canvas.configure(yscrollcommand=self.scrollbar.set)
 

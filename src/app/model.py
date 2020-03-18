@@ -1,3 +1,6 @@
+from src import RESULT_FILE_PATH
+
+
 class Model(object):
 
     def __init__(self):
@@ -7,8 +10,8 @@ class Model(object):
         self.links = [f'Magnet Link {i}' for i in range(20)]
 
     def load_result_file(self):
-        with open('app/temp/results.txt', mode='r') as resultFile:
-            self.links = resultFile.readlines()
+        with open(RESULT_FILE_PATH, mode='r') as result_file:
+            self.links = result_file.readlines()
 
     def handle_url(self, url):
         handled_url = url
