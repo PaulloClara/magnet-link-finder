@@ -11,7 +11,8 @@ class Model(object):
 
     def load_result_file(self):
         with open(RESULT_FILE_PATH, mode='r') as result_file:
-            self.links = result_file.readlines()
+            self.links =\
+                [line.replace('\n', '') for line in result_file.readlines()]
 
     def validate_user_input(self, user_input):
         if not user_input.strip():
