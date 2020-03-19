@@ -74,7 +74,7 @@ class Header(Frame):
     def initialize_search_input(self, command):
         cnf = {}
 
-        cnf['bd'] = 4
+        cnf['bd'] = 2
         cnf['bg'] = '#606060'
         cnf['relief'] = 'ridge'
         cnf['highlightcolor'] = 'grey'
@@ -87,7 +87,7 @@ class Header(Frame):
         self.search_input = Entry(master=self, cnf=cnf)
         self.search_input.bind('<Return>', command)
 
-        self.search_input.pack(ipadx=4, ipady=2, side='left')
+        self.search_input.pack(ipadx=6, ipady=2, side='left')
 
     def initialize_search_button(self, command):
         cnf = {}
@@ -98,7 +98,7 @@ class Header(Frame):
         self.search_button = Button(master=self, cnf=cnf)
         self.search_button.bind('<Button-1>', command)
 
-        self.search_button.pack(ipadx=2, side='right')
+        self.search_button.pack(ipadx=4, side='right')
 
 
 class Main(Frame):
@@ -139,9 +139,9 @@ class Main(Frame):
     def create_item(self, text, command):
         cnf = {}
 
-        cnf['bd'] = 2
+        cnf['bd'] = 1
         cnf['bg'] = 'darkgreen'
-        cnf['relief'] = 'raised'
+        cnf['relief'] = 'solid'
 
         item = Frame(master=self.viewport, cnf=cnf)
 
@@ -188,10 +188,7 @@ class Main(Frame):
 
     def initialize_canvas(self):
         cnf = {}
-
         cnf['height'] = 420
-        cnf['bd'] = 2
-        cnf['bg'] = 'grey'
 
         self.canvas = Canvas(master=self, cnf=cnf)
 
@@ -204,7 +201,7 @@ class Main(Frame):
         cnf = {}
 
         cnf['width'] = 14
-        cnf['bd'] = 4
+        cnf['bd'] = 2
         cnf['bg'] = 'grey'
         cnf['relief'] = 'raised'
 
