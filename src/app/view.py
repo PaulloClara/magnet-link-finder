@@ -58,7 +58,10 @@ class Header(Frame):
         self.search_button = None
         self.search_button_icon = None
 
+        self.events = {}
+
     def run(self, events):
+        self.events = events
         self.search_button_icon = PhotoImage(file=FIND_ICON_PATH)
 
         self.initialize_search_input(command=events['search_link'])
@@ -107,9 +110,13 @@ class Main(Frame):
         self.viewport = None
         self.scrollbar = None
 
+        self.items = []
+
+        self.events = {}
         self.item_button_icon = None
 
     def run(self, events):
+        self.events = events
         self.item_button_icon = PhotoImage(file=COPY_ICON_PATH)
 
         self.initialize_canvas()
@@ -118,6 +125,16 @@ class Main(Frame):
 
         self.configure_scrollview()
         self.pack(pady=4, side='bottom')
+
+    def load_items(self, links):
+        self.destroy_items()
+
+        for link in links:
+            self.create_item(text=link, command=self.events['copy_link'])
+
+    def destroy_items(self):
+        for item in self.items:
+            item.destroy()
 
     def create_item(self, text, command):
         cnf = {}
@@ -151,6 +168,8 @@ class Main(Frame):
         button.pack(side='right')
 
         item.pack(fill='x')
+
+        self.items.append(item)
 
     def configure_scrollview(self):
         self.scrollbar.configure(command=self.canvas.yview)

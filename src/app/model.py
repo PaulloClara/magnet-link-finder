@@ -7,7 +7,7 @@ class Model(object):
         self.links = []
 
     def run(self):
-        self.links = [f'Magnet Link {i}' for i in range(20)]
+        self.links = [f'Magnet Link {i}' for i in range(1, 21)]
 
     def load_result_file(self):
         with open(RESULT_FILE_PATH, mode='r') as result_file:

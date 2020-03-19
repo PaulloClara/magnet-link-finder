@@ -20,6 +20,8 @@ class Controller(object):
         self.view.run(events=events)
         self.model.run()
 
+        self.view.container.main.load_items(links=self.model.links)
+
     def find_links(self, url):
         command = ['scrapy', 'runspider',
                    f'-s URL={url}', f'-s OUTPUT={RESULT_FILE_PATH}', '--nolog',
@@ -37,3 +39,4 @@ class Controller(object):
 
         self.find_links(url=url)
         self.model.load_result_file()
+        self.view.container.main.load_items(links=self.model.links)
