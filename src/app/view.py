@@ -1,4 +1,4 @@
-from src import FIND_ICON_PATH, COPY_ICON_PATH, WINDOW_ICON_PATH
+from src import FIND_ICON_PATH, COPY_ICON_PATH, WINDOW_ICON_PATH, WINDOW_WIDTH, WINDOW_HEIGHT
 from tkinter import Tk, Frame, Canvas, Entry, Label, Button, Scrollbar, PhotoImage
 
 
@@ -7,14 +7,17 @@ class View(Tk):
     def __init__(self):
         super().__init__()
 
-        self.events = {}
-        self.container = None
-
         self.title('Magnet Finder')
-        self.geometry('340x480')
+        self.wm_iconphoto(True, PhotoImage(file=WINDOW_ICON_PATH))
+
+        posx = self.winfo_screenwidth() // 2 - WINDOW_WIDTH // 2
+        posy = self.winfo_screenheight() // 2 - WINDOW_HEIGHT // 2
+        self.geometry(f'{WINDOW_WIDTH}x{WINDOW_HEIGHT}+{posx}+{posy}')
+
         self.resizable(0, 0)
 
-        self.wm_iconphoto(True, PhotoImage(file=WINDOW_ICON_PATH))
+        self.events = {}
+        self.container = None
 
     def run(self, events):
         self.events = events

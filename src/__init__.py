@@ -1,3 +1,6 @@
+WINDOW_WIDTH = 340
+WINDOW_HEIGHT = 480
+
 RESULT_FILE_PATH = 'src/temp/result.txt'
 WEB_CRAWLER_PATH = 'src/app/web-crawler.py'
 
