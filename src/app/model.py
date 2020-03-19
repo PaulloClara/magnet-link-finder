@@ -13,6 +13,12 @@ class Model(object):
         with open(RESULT_FILE_PATH, mode='r') as result_file:
             self.links = result_file.readlines()
 
+    def validate_user_input(self, user_input):
+        if not user_input.strip():
+            return False
+
+        return True
+
     def handle_url(self, url):
         handled_url = url
 

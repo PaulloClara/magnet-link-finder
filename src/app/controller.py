@@ -26,9 +26,8 @@ class Controller(object):
         command = ['scrapy', 'runspider',
                    f'-s URL={url}', f'-s OUTPUT={RESULT_FILE_PATH}', '--nolog',
                    WEB_CRAWLER_PATH]
-        result = run_command(command)
 
-        return result.returncode
+        return run_command(command).returncode
 
     def event_copy_link(self, event, link):
         self.view.clipboard_clear()
@@ -36,6 +35,10 @@ class Controller(object):
 
     def event_search_link(self, event):
         user_input = self.view.container.header.search_input.get()
+
+        if not self.model.validate_user_input(user_input):
+            return None
+
         url = self.model.handle_url(url=user_input)
 
         self.find_links(url=url)

@@ -15,13 +15,20 @@ class WebCrawler(Spider):
                            for arg in argv if '-s URL=' in arg]
 
     def parse(self, response):
-        body = response.body_as_unicode()
+        try:
+            body = response.body_as_unicode()
 
-        links = body.split('<body>')[1].split('</body>')[0].split('<a')
-        links = map(lambda link: link.split("</a>")[0], links)
+            links = body.split('<body>')[1].split('</body>')[0].split('<a')
+            links = map(lambda link: link.split("</a>")[0], links)
 
-        magnet_links = filter(lambda link: 'magnet' in link, links)
-        magnet_links = map(lambda link: link.split("'")[1], magnet_links)
+            magnet_links = filter(lambda link: 'magnet' in link, links)
+            magnet_links = map(lambda link: link.split("'")[1], magnet_links)
 
-        with open(RESULT_FILE_PATH, mode='w') as result_file:
-            result_file.write('\n'.join(magnet_links))
+            if not magnet_links:
+                magnet_links = ['']
+        except Exception:
+            magnet_links =\
+                'Could Not Find Magnetic Links On The Page :('.split(' ')
+        finally:
+            with open(RESULT_FILE_PATH, mode='w') as result_file:
+                result_file.write('\n'.join(magnet_links))
