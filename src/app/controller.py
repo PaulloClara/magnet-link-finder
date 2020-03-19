@@ -31,7 +31,8 @@ class Controller(object):
         return result.returncode
 
     def event_copy_link(self, event, link):
-        print(link)
+        self.view.clipboard_clear()
+        self.view.clipboard_append(link)
 
     def event_search_link(self, event):
         user_input = self.view.container.header.search_input.get()
