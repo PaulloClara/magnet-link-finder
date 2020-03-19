@@ -120,7 +120,6 @@ class Main(Frame):
 
     def run(self, events):
         self.events = events
-        self.item_button_icon = PhotoImage(file=COPY_ICON_PATH)
 
         self.initialize_canvas()
         self.initialize_viewport()
@@ -140,37 +139,8 @@ class Main(Frame):
             item.destroy()
 
     def create_item(self, text, command):
-        cnf = {}
-
-        cnf['bd'] = 1
-        cnf['bg'] = 'darkgreen'
-        cnf['relief'] = 'solid'
-
-        item = Frame(master=self.viewport, cnf=cnf)
-
-        cnf = {}
-
-        cnf['text'] = text if len(text) < 25 else f'{text[:22]}...'
-        cnf['bg'] = 'darkgreen'
-        cnf['fg'] = 'white'
-        cnf['font'] = ('Helvetica', 14, 'normal')
-
-        label = Label(master=item, cnf=cnf)
-        label.pack(ipadx=10, fill='y', side='left')
-
-        cnf = {}
-
-        cnf['bd'] = 2
-        cnf['bg'] = 'green'
-        cnf['activebackground'] = 'green'
-        cnf['image'] = self.item_button_icon
-
-        button = Button(master=item, cnf=cnf)
-        button.bind('<Button-1>', lambda event: command(event, text))
-
-        button.pack(side='right')
-
-        item.pack(fill='x')
+        item = Item(master=self.viewport)
+        item.run(text=text, command=command)
 
         self.items.append(item)
 
@@ -209,3 +179,55 @@ class Main(Frame):
         cnf['relief'] = 'raised'
 
         self.scrollbar = Scrollbar(master=self, cnf=cnf)
+
+
+class Item(Frame):
+
+    def __init__(self, master):
+        cnf = {}
+
+        cnf['bd'] = 1
+        cnf['bg'] = 'darkgreen'
+        cnf['relief'] = 'solid'
+
+        super().__init__(master=master, cnf=cnf)
+
+        self.label = None
+        self.button = None
+        self.button_icon = None
+
+        self.link = ''
+
+    def run(self, text, command):
+        self.link = text
+        self.button_icon = PhotoImage(file=COPY_ICON_PATH)
+
+        self.initialize_label(text=text)
+        self.initialize_button(command=command)
+
+        self.pack(fill='x')
+
+    def initialize_label(self, text):
+        cnf = {}
+
+        cnf['text'] = text if len(text) < 25 else f'{text[:22]}...'
+        cnf['bg'] = 'darkgreen'
+        cnf['fg'] = 'white'
+        cnf['font'] = ('Helvetica', 14, 'normal')
+
+        self.label = Label(master=self, cnf=cnf)
+        self.label.pack(ipadx=10, fill='y', side='left')
+
+    def initialize_button(self, command):
+        cnf = {}
+
+        cnf['bd'] = 2
+        cnf['bg'] = 'green'
+        cnf['activebackground'] = 'green'
+        cnf['image'] = self.button_icon
+
+        self.button = Button(master=self, cnf=cnf)
+        self.button.bind('<Button-1>',
+                         lambda event: command(event, self.link))
+
+        self.button.pack(side='right')
